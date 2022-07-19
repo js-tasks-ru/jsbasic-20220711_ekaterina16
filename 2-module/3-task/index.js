@@ -1,8 +1,8 @@
 let calculator = {
 
   read(a, b) {
-    calculator['a'] = a;
-    calculator['b'] = b;
+    this['a'] = a;
+    this['b'] = b;
   },
 
   sum() {

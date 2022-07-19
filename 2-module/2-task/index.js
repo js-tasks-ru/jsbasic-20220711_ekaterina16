@@ -1,4 +1,4 @@
 function isEmpty(obj) {
-  let isEmpty = Object.keys(obj).length;
-  return isEmpty === 0;
+  let arrayLength = Object.keys(obj).length;
+  return arrayLength === 0;
 }

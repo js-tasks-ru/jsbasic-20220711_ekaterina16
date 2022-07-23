@@ -1,3 +1,10 @@
+// Способ #1
+function filterRange(arr, a, b) {
+  return arr.filter(item => (a <= item && item <= b));
+}
+
+// Способ #2
+/*
 function filterRange(arr, a, b) {
   const newArr = [];
 
@@ -8,3 +15,5 @@ function filterRange(arr, a, b) {
   }
   return newArr;
 }
+*/
+

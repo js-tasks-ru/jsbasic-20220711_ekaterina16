@@ -1,4 +1,14 @@
+// Способ #1
 function camelize(str) {
+  return str.split('-')
+    .map((word, index) => index !== 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word)
+    .join('');
+}
+
+// Способ #2
+/*
+function camelize(str) {
+
   const splitArr = str.split('-');
   const newArr = [];
 
@@ -8,3 +18,4 @@ function camelize(str) {
 
   return splitArr[0] + newArr.join("");
 }
+*/

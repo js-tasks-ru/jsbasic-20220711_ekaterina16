@@ -3,6 +3,7 @@ function initCarousel() {
   let buttonLeft = document.querySelector('[class="carousel__arrow carousel__arrow_left"]');
   let images = document.querySelectorAll(`[class="carousel__slide"]`);
   let image = document.querySelector(`[class="carousel__inner"]`);
+  let imageWidth = image.offsetWidth;
 
   let sliderIndex = 0;
   let maxIndex = images.length - 1;
@@ -19,7 +20,7 @@ function initCarousel() {
       buttonRight.style.display = 'none';
     }
 
-    image.style.transform = `translateX(${sliderIndex * -100}%)`;
+    image.style.transform = `translateX(${+sliderIndex * -imageWidth}px)`;
   };
 
   buttonLeft.onclick = () => {
@@ -31,6 +32,6 @@ function initCarousel() {
       buttonLeft.style.display = 'none';
     }
 
-    image.style.transform = `translateX(${sliderIndex * 100}%)`;
+    image.style.transform = `translateX(${+sliderIndex * -imageWidth}px)`;
   };
 }

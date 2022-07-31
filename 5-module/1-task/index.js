@@ -1,4 +1,4 @@
 function hideSelf() {
-  let button = document.querySelector('[class="hide-self-button"]');
+  let button = document.querySelector('.hide-self-button');
   button.onclick = () => { button.hidden = true; };
 }

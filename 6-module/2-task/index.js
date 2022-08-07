@@ -1,8 +1,7 @@
 export default class ProductCard {
 
-  #elem = '';
-  #product = '';
-  #productId = '';
+  #elem = null;
+  #product = null;
 
   #html() {
     return `
@@ -22,7 +21,6 @@ export default class ProductCard {
 
   constructor(product) {
     this.#product = product;
-    this.#productId = product.id;
     this.#elem = this.render();
 
   }
@@ -33,11 +31,10 @@ export default class ProductCard {
     let productCard = div.firstElementChild;
 
     const addButton = productCard.querySelector('.card__button');
-    const productId = this.#productId;
 
-    addButton.onclick = function() {
+    addButton.onclick = () => {
       const productCardEvent = new CustomEvent("product-add",
-        { detail: productId,
+        { detail: this.#product.id,
           bubbles: true});
 
       productCard.dispatchEvent(productCardEvent);

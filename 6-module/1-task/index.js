@@ -13,7 +13,7 @@
  *
  */
 export default class UserTable {
-  elem = '';
+  elem = null;
 
   constructor(rows) {
     let tbody = document.createElement('tbody');
@@ -26,7 +26,8 @@ export default class UserTable {
         <td>${item.name}</td>
         <td>${item.age}</td>
         <td>${item.salary}</td>
-        <td>${item.city}</td>`;
+        <td>${item.city}</td>
+        <td><button class="remove-button" data-action="remove">X</button></td>`;
       tbody.appendChild(tr);
 
       table.appendChild(tbody);
@@ -37,14 +38,8 @@ export default class UserTable {
 
     this.elem = table;
 
-    let row = table.querySelectorAll("tbody tr");
-
-    for (let i = 0; i < row.length; i++) {
-      row[i].innerHTML += '<td><button class="remove-button" data-action="remove">X</button></td>';
-    }
-
-    table.querySelector("tbody").addEventListener("click", function(e) {
-      e.target.closest('.row').remove();
+    table.querySelector("tbody").addEventListener("click", (event) => {
+      event.target.closest('.row').remove();
     });
   }
 }

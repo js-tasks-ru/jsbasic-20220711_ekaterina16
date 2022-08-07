@@ -49,9 +49,9 @@ export default class Carousel {
 
     addCarouselButton.forEach((btn)=> {
       btn.addEventListener('click', (event)=> {
-        let target = event.target;
+        let target = event.target.closest(".carousel__slide");
         const addCarouselButtonEvent = new CustomEvent("product-add",
-          { detail: target.closest('div[data-id]').getAttribute('data-id'),
+          { detail: target.dataset.id,
             bubbles: true});
 
         carousel.dispatchEvent(addCarouselButtonEvent);

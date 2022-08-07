@@ -1,7 +1,7 @@
 function initCarousel() {
+  let carousel = document.querySelector('.carousel');
   let buttonRight = document.querySelector('.carousel__arrow.carousel__arrow_right');
   let buttonLeft = document.querySelector('.carousel__arrow.carousel__arrow_left');
-  let carousel = document.querySelector('.carousel');
   let images = carousel.querySelectorAll('.carousel__slide');
   let image = carousel.querySelector('.carousel__inner');
   let imageWidth = image.offsetWidth;

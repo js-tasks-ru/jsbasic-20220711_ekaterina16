@@ -1,6 +1,6 @@
 import createElement from '../../assets/lib/create-element.js';
 
-function StepSliderTemplate(value) {
+function StepSliderTemplate(steps, value) {
   return `
     <div class="slider">
         <div class="slider__thumb">
@@ -8,7 +8,7 @@ function StepSliderTemplate(value) {
         </div>
         <div class="slider__progress"></div>
         <div class="slider__steps">
-            <span  class="slider__step-active"></span>
+            ${[...Array(steps)].map(() => '<span></span>').join("")}
         </div>
     </div>`;
 }
@@ -20,41 +20,19 @@ export default class StepSlider {
 
   constructor({ steps, value = 0 }) {
     // eslint-disable-next-line new-cap
-    this.#template = StepSliderTemplate(value);
+    this.#template = StepSliderTemplate(steps, value);
     this.#steps = steps;
-    this.#elem = this.render();
+    this.#elem = this.#render();
+    this.#calculateProgress(value);
   }
 
-  render() {
-    const slider = createElement(this.#template);
-
-    const sliderSteps = slider.querySelector('.slider__steps');
-    const sliderProgress = slider.querySelector('.slider__progress');
-    const span = '<span></span>';
-
-    for (let i = 1; i < this.#steps; i++) {
-      sliderSteps.innerHTML += span;
-    }
-
-    sliderProgress.style.width = `0%`;
-
-    slider.addEventListener('click', (event)=> { this.onSliderClickEvent(event);});
-
-    return slider;
-  }
-
-  onSliderClickEvent = (event) => {
+  #calculateProgress = (value = 0) => {
     const sliderSteps = this.#elem.querySelector('.slider__steps');
     const sliderValue = this.#elem.querySelector('.slider__value');
 
-    let left = event.clientX - this.#elem.getBoundingClientRect().left;
-    let leftRelative = left / this.#elem.offsetWidth;
     let segments = this.#steps - 1;
-    let approximateValue = leftRelative * segments;
-    let value = Math.round(approximateValue);
     let valuePercents = value / segments * 100;
-
-    let activeStep = sliderSteps.childNodes[1];
+    let activeStep = sliderSteps.childNodes[value + 1];
 
     sliderValue.innerHTML = value;
 
@@ -65,12 +43,37 @@ export default class StepSlider {
 
     thumb.style.left = `${valuePercents}%`;
     progress.style.width = `${valuePercents}%`;
+  }
+
+  #changeActiveSlide = (event) => {
+    let left = event.clientX - this.#elem.getBoundingClientRect().left;
+    let leftRelative = left / this.#elem.offsetWidth;
+
+    let segments = this.#steps - 1;
+    let approximateValue = leftRelative * segments;
+    let value = Math.round(approximateValue);
+
+    this.#calculateProgress(value);
 
     const sliderChangeEvent = new CustomEvent("slider-change",
       { detail: value,
         bubbles: true});
 
-    return this.#elem.dispatchEvent(sliderChangeEvent);
+    this.#elem.dispatchEvent(sliderChangeEvent);
+  }
+
+  #render() {
+    const slider = createElement(this.#template);
+
+    slider.addEventListener('click', this.#onSliderClickEvent);
+    return slider;
+  }
+
+  #onSliderClickEvent = (event) => {
+    let activeStep = this.#elem.querySelector('.slider__step-active');
+    activeStep.classList.remove('slider__step-active');
+
+    this.#changeActiveSlide(event);
   }
 
   get elem() {

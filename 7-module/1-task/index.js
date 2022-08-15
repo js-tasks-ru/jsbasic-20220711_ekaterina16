@@ -89,7 +89,7 @@ export default class RibbonMenu {
       { detail: target.dataset.id,
         bubbles: true});
 
-    return this.#elem.dispatchEvent(ribbonMenuItemEvent);
+    this.#elem.dispatchEvent(ribbonMenuItemEvent);
   }
 
   get elem() {

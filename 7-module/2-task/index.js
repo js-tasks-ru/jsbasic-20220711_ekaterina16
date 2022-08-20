@@ -53,6 +53,7 @@ export default class Modal {
 
   setBody(body) {
     let modalBody = this.#container.querySelector('.modal__body');
+    modalBody.innerHTML = "";
     modalBody.append(body);
     return modalBody;
   }

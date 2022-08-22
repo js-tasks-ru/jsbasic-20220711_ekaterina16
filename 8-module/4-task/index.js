@@ -211,6 +211,7 @@ export default class Cart {
 
       this.modal.setTitle('Success!');
       this.cartItems = [];
+      this.cartIcon.update(this);
       this.modal.setBody(createElement(`
         <div class="modal__body-inner">
             <p>
